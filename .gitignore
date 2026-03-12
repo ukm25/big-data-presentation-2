@@ -1,0 +1,4 @@
+data/web-Google.txt
+app-*
+.DS_Store
+__pycache__/

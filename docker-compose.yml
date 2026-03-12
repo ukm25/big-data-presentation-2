@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  spark-master:
+    image: bitnamilegacy/spark:latest
+    container_name: spark-master
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+    ports:
+      - '8080:8080'
+      - '7077:7077'
+      - '4040:4040'
+    volumes:
+      - .:/opt/bitnami/spark/work
+    networks:
+      - spark-network
+
+  spark-worker:
+    image: bitnamilegacy/spark:latest
+    container_name: spark-worker
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=2
+      - SPARK_WORKER_MEMORY=2g
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+    volumes:
+      - .:/opt/bitnami/spark/work
+    networks:
+      - spark-network
+    depends_on:
+      - spark-master
+
+networks:
+  spark-network:
+    driver: bridge
