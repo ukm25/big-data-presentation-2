@@ -60,13 +60,8 @@ if __name__ == "__main__":
     for (link, rank) in top_100[:10]:
         print(f"Page ID: {link} - Rank: {rank:.4f}")
 
-    print("\n" + "="*50)
-    print("DEMO HOÀN TẤT!")
-    print("Giao diện Spark UI (4040) sẽ được giữ trong 5 phút để thuyết trình.")
-    print("="*50)
-
     try:
-        time.sleep(300)
+        time.sleep(120)
     except KeyboardInterrupt:
         print("\nĐã ngắt lệnh chờ.")
 

@@ -18,12 +18,44 @@ services:
 
   spark-worker:
     image: bitnamilegacy/spark:latest
-    container_name: spark-worker
+    container_name: spark-worker-1
     environment:
       - SPARK_MODE=worker
       - SPARK_MASTER_URL=spark://spark-master:7077
-      - SPARK_WORKER_CORES=2
-      - SPARK_WORKER_MEMORY=2g
+      - SPARK_WORKER_CORES=3
+      - SPARK_WORKER_MEMORY=3g
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+    volumes:
+      - .:/opt/bitnami/spark/work
+    networks:
+      - spark-network
+    depends_on:
+      - spark-master
+
+  spark-worker-2:
+    image: bitnamilegacy/spark:latest
+    container_name: spark-worker-2
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=3
+      - SPARK_WORKER_MEMORY=3g
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+    volumes:
+      - .:/opt/bitnami/spark/work
+    networks:
+      - spark-network
+    depends_on:
+      - spark-master
+
+  spark-worker-3:
+    image: bitnamilegacy/spark:latest
+    container_name: spark-worker-3
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark-master:7077
+      - SPARK_WORKER_CORES=3
+      - SPARK_WORKER_MEMORY=3g
       - SPARK_RPC_AUTHENTICATION_ENABLED=no
     volumes:
       - .:/opt/bitnami/spark/work
